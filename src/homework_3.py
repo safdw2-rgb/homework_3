@@ -23,21 +23,22 @@ def add_contact(args):
 
 @input_error
 def change_contact(args):
+    if args[0] not in contact_book:
+        return f"Error: Contact {args[0]} doesn't exist."
     for contact in contact_book:
         if args[0] == contact["name"]:
            contact["phone_number"] = args[1]
-        else:
-            return f"Error: Contact {args[0]} doesn't exist."
     return f"Contact {args[0]} changed."
 
 
 @input_error
 def show_phone_number(entered_name):
+    if entered_name not in contact_book:
+        return f"Error: Contact {entered_name} doesn't exist."
     for contact in contact_book:
         if entered_name == contact["name"]:
             return f"{entered_name}: {contact["phone_number"]}"
-        else:
-            return f"Error: Contact {entered_name} doesn't exist."
+            
 
 
 def main():
@@ -48,11 +49,13 @@ def main():
         if not parts:
             print("Error: Please enter a comand.")
             continue
+
+        if comand in COMANDS[-3:]:
+            return "Good Bye!"
+        
         action = parts[0].lower()
 
-        if action in COMANDS[-3:]:
-            return "Good Bye!"
-        elif action == COMANDS[0]:
+        if action == COMANDS[0]:
             print("How can I help you?")
         elif action == COMANDS[1]:
             print(add_contact(parts[1:]))
@@ -61,6 +64,8 @@ def main():
         elif action == COMANDS[3]:
             print(show_phone_number(parts[1]))
         elif action in COMANDS[4]:
+            if len(contact_book) == 0:
+                print("Contact book is empty.")
             for i in range(len(contact_book)):
                 print(f"{(contact_book[i])["name"]}: {(contact_book[i])["phone_number"]}")
         else:
