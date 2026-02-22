@@ -10,8 +10,6 @@ def input_error(func):
             return "Error: Please provide both name and phone number."
         except ValueError:
             return "Error: Please enter correct data."
-        except KeyError:
-            return "Error: This name doesn't exist."
     return check_errors
 
 
@@ -23,21 +21,23 @@ def add_contact(args):
 
 @input_error
 def change_contact(args):
-    if args[0] not in contact_book:
-        return f"Error: Contact {args[0]} doesn't exist."
+    if args[1] not in args:
+        return "Error: Please provide both name and phone number."
     for contact in contact_book:
         if args[0] == contact["name"]:
            contact["phone_number"] = args[1]
-    return f"Contact {args[0]} changed."
+           return f"Contact {args[0]} changed."
+        else:
+            return f"Error: Contact {args[0]} doesn't exist."
 
 
 @input_error
-def show_phone_number(entered_name):
-    if entered_name not in contact_book:
-        return f"Error: Contact {entered_name} doesn't exist."
+def show_phone_number(entered_name): 
     for contact in contact_book:
         if entered_name == contact["name"]:
             return f"{entered_name}: {contact["phone_number"]}"
+        else:
+            return f"Error: Contact {entered_name} doesn't exist."
             
 
 
