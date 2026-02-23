@@ -77,23 +77,20 @@ def show_phone_number(*args):
             return f"Error: Contact {args[0]} doesn't exist."
 
 
-@input_error
 def greetings(*args) -> str:
     return "How can I help you?"
 
 
-@input_error
+
 def show_all(*args) -> str:
     return "\n".join([f"{contact['name']}: {contact['phone_number']}" for contact in contact_book])
 
 
-@input_error
 def exit_command(*args) -> bool:
     print("Good bye!")
     return  False
 
 
-@input_error
 def help_(*args):
     start_part = "This is commands and their description to simplify you usage of CLI-assistant\n"
     commands_and_description = {"hello": "Base start command",
