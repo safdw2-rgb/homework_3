@@ -1,4 +1,4 @@
-COMANDS = ["hello", "add", "change", "phone", "show all", "good bye", "close", "exit"]
+
 contact_book = []
 
 
@@ -53,6 +53,11 @@ def change_contact(args):
         
     return empty_contact_book()
 
+def show_all_numbers():
+    if len(contact_book) == 0:
+        return "Contact book is empty."
+    for i in range(len(contact_book)):
+        return f"{(contact_book[i])["name"]}: {(contact_book[i])["phone_number"]}"
 
 @input_error
 def show_phone_number(entered_name): 
@@ -65,6 +70,16 @@ def show_phone_number(entered_name):
     return empty_contact_book()
             
 
+COMANDS = {
+    "hello": "How can I help you?",
+    "add": add_contact,
+    "change": change_contact,
+    "phone": show_phone_number,
+    "show all": show_all_numbers,
+    "good bye": "Good Bye!",
+    "close": "Good Bye!",
+    "exit": "Good Bye!"}
+
 
 def main():
     while True:
@@ -75,27 +90,17 @@ def main():
             print("Error: Please enter a comand.")
             continue
 
-        if comand in COMANDS[-3:]:
-            return "Good Bye!"
+        # action = parts[0].lower()
+        # method = COMANDS.get(action)
         
-        action = parts[0].lower()
+        # if method:
+        #     result = method(parts)
+        #     if result == "Good Bye!":
+        #         return result
+        #     print(result)
 
-        if action == COMANDS[0]:
-            print("How can I help you?")
-        elif action == COMANDS[1]:
-            print(add_contact(parts[1:]))
-        elif action == COMANDS[2]:
-            print(change_contact(parts[1:]))
-        elif action == COMANDS[3]:
-            print(show_phone_number(parts[1]))
-        elif action in COMANDS[4]:
-            if len(contact_book) == 0:
-                print("Contact book is empty.")
-            for i in range(len(contact_book)):
-                print(f"{(contact_book[i])["name"]}: {(contact_book[i])["phone_number"]}")
-        else:
-            print("Error: Please enter a comand.")
-            continue
+        # else:
+        #     print("Error: Please enter a comand.")
             
-        
+
 print(main())
